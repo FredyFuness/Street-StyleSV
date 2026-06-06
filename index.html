@@ -4,11 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>STREET STYLE SV — DROP 01: TOROGOZ EDITION</title>
-
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Google Fonts: Bebas Neue (display) + Barlow Condensed (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
@@ -18,11 +14,11 @@
       theme: {
         extend: {
           colors: {
-            neon:    '#deff9a',
-            carbon:  '#0d0d0d',
-            ash:     '#1a1a1a',
-            smoke:   '#2a2a2a',
-            muted:   '#555555',
+            neon:   '#deff9a',
+            carbon: '#0d0d0d',
+            ash:    '#1a1a1a',
+            smoke:  '#2a2a2a',
+            muted:  '#555555',
           },
           fontFamily: {
             display: ['Bebas Neue', 'sans-serif'],
@@ -34,7 +30,7 @@
   </script>
 
   <style>
-    /* ─── Base ─────────────────────────────────────────────── */
+    /* ── Reset & Base ─────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -44,58 +40,45 @@
       overflow-x: hidden;
     }
 
-    /* ─── Noise overlay (texture) ───────────────────────────── */
+    /* ── Noise texture ────────────────────────────────── */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.04;
-      pointer-events: none;
-      z-index: 9999;
+      opacity: 0.04; pointer-events: none; z-index: 0;
     }
 
-    /* ─── Nav ───────────────────────────────────────────────── */
+    /* ── Navbar ───────────────────────────────────────── */
     #navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
       transition: background 0.3s, border-color 0.3s;
     }
     #navbar.scrolled {
-      background: rgba(13,13,13,0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(13,13,13,0.95);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid #2a2a2a;
     }
     .nav-link {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 600;
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #aaa;
-      transition: color 0.2s;
+      font-weight: 600; font-size: 0.85rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: #aaa; transition: color 0.2s;
     }
     .nav-link:hover { color: #deff9a; }
 
-    /* ─── Mobile menu ───────────────────────────────────────── */
+    /* ── Mobile menu ──────────────────────────────────── */
     #mobile-menu {
-      display: none;
-      flex-direction: column;
-      gap: 1rem;
+      display: none; flex-direction: column; gap: 1rem;
       padding: 1.5rem 1.5rem 2rem;
-      background: #1a1a1a;
-      border-top: 1px solid #2a2a2a;
+      background: #1a1a1a; border-top: 1px solid #2a2a2a;
     }
     #mobile-menu.open { display: flex; }
 
-    /* ─── Hero ──────────────────────────────────────────────── */
+    /* ── Hero ─────────────────────────────────────────── */
     #hero {
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      min-height: 100dvh; display: flex;
+      flex-direction: column; justify-content: flex-end;
       padding: 2rem 1.5rem 4rem;
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
     .hero-bg {
       position: absolute; inset: 0;
@@ -103,287 +86,471 @@
         radial-gradient(ellipse 80% 60% at 60% 40%, rgba(222,255,154,0.06) 0%, transparent 60%),
         linear-gradient(160deg, #0d0d0d 40%, #141c0a 100%);
     }
-    /* Grunge diagonal stripe */
     .hero-bg::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(
-        -55deg,
-        transparent 0px,
-        transparent 48px,
-        rgba(255,255,255,0.015) 48px,
-        rgba(255,255,255,0.015) 50px
-      );
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(-55deg, transparent 0px, transparent 48px, rgba(255,255,255,0.015) 48px, rgba(255,255,255,0.015) 50px);
     }
     .hero-tag {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #deff9a;
-      border: 1px solid rgba(222,255,154,0.4);
-      display: inline-block;
-      padding: 0.3rem 0.85rem;
-      margin-bottom: 1.25rem;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: #deff9a; border: 1px solid rgba(222,255,154,0.4);
+      display: inline-block; padding: 0.3rem 0.85rem; margin-bottom: 1.25rem;
     }
     .hero-title {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(3.5rem, 14vw, 10rem);
-      line-height: 0.9;
-      letter-spacing: -0.01em;
-      color: #ffffff;
+      line-height: 0.9; color: #fff;
       text-shadow: 0 0 120px rgba(222,255,154,0.08);
     }
     .hero-title span { color: #deff9a; }
     .hero-sub {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(1rem, 3vw, 1.4rem);
-      font-weight: 300;
-      letter-spacing: 0.08em;
-      color: #888;
-      margin-top: 1rem;
-      max-width: 420px;
-      font-style: italic;
+      font-size: clamp(1rem, 3vw, 1.4rem); font-weight: 300;
+      letter-spacing: 0.08em; color: #888;
+      margin-top: 1rem; max-width: 420px; font-style: italic;
     }
     .hero-cta {
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 1rem 2.5rem;
-      background: #deff9a;
-      color: #0d0d0d;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      text-decoration: none;
+      display: inline-block; margin-top: 2rem;
+      padding: 1rem 2.5rem; background: #deff9a; color: #0d0d0d;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem;
+      letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
       clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
       transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
       box-shadow: 4px 4px 0 rgba(222,255,154,0.25);
     }
-    .hero-cta:hover {
-      background: #fff;
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 rgba(222,255,154,0.4);
-    }
-    /* Floating badge */
+    .hero-cta:hover { background: #fff; transform: translate(-2px, -2px); box-shadow: 6px 6px 0 rgba(222,255,154,0.4); }
+
     .drop-badge {
-      position: absolute;
-      top: 6.5rem; right: 1.5rem;
-      width: 88px; height: 88px;
-      border-radius: 50%;
+      position: absolute; top: 6.5rem; right: 1.5rem;
+      width: 88px; height: 88px; border-radius: 50%;
       border: 1px solid rgba(222,255,154,0.4);
       background: rgba(13,13,13,0.7);
       display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
+      align-items: center; justify-content: center; text-align: center;
       animation: spin-slow 20s linear infinite;
-      font-family: 'Barlow Condensed', sans-serif;
     }
     @keyframes spin-slow { to { transform: rotate(360deg); } }
-    .drop-badge-inner { animation: spin-slow 20s linear infinite reverse; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: #deff9a; line-height: 1.4; }
+    .drop-badge-inner {
+      animation: spin-slow 20s linear infinite reverse;
+      font-size: 0.6rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #deff9a; line-height: 1.4;
+    }
 
-    /* ─── Marquee ────────────────────────────────────────────── */
+    /* ── Marquee ──────────────────────────────────────── */
     .marquee-wrap {
-      background: #deff9a;
-      color: #0d0d0d;
-      overflow: hidden;
-      white-space: nowrap;
-      border-top: 1px solid #fff;
-      border-bottom: 1px solid rgba(0,0,0,0.15);
+      background: #deff9a; color: #0d0d0d;
+      overflow: hidden; white-space: nowrap;
+      border-top: 1px solid #fff; border-bottom: 1px solid rgba(0,0,0,0.15);
+      position: relative; z-index: 10;
     }
-    .marquee-track {
-      display: inline-flex;
-      animation: marquee 18s linear infinite;
-    }
+    .marquee-track { display: inline-flex; animation: marquee 18s linear infinite; }
     .marquee-track span {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.12em;
-      padding: 0.6rem 2.5rem;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+      letter-spacing: 0.12em; padding: 0.6rem 2.5rem;
     }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* ─── Section label ─────────────────────────────────────── */
+    /* ── Section helpers ──────────────────────────────── */
     .section-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #deff9a;
-      border-left: 2px solid #deff9a;
-      padding-left: 0.75rem;
-      margin-bottom: 0.5rem;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: #deff9a; border-left: 2px solid #deff9a;
+      padding-left: 0.75rem; margin-bottom: 0.5rem; display: block;
     }
     .section-title {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(2.5rem, 8vw, 5rem);
-      line-height: 0.95;
-      color: #fff;
+      line-height: 0.95; color: #fff;
     }
 
-    /* ─── Product card ──────────────────────────────────────── */
+    /* ── Product card ─────────────────────────────────── */
     .product-card {
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      position: relative;
-      overflow: hidden;
+      background: #1a1a1a; border: 1px solid #2a2a2a;
+      position: relative; overflow: hidden;
       transition: border-color 0.25s, transform 0.25s;
       clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
     }
     .product-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
       background: linear-gradient(90deg, transparent, #deff9a, transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
+      opacity: 0; transition: opacity 0.3s;
     }
     .product-card:hover { border-color: rgba(222,255,154,0.35); transform: translateY(-4px); }
     .product-card:hover::before { opacity: 1; }
 
     .product-img {
       width: 100%; aspect-ratio: 3/4;
-      background: #2a2a2a;
-      position: relative;
-      overflow: hidden;
+      background: #2a2a2a; position: relative; overflow: hidden;
     }
-    .product-img::after {
-      content: 'STREET STYLE SV';
+    .product-img img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 1; }
+    .product-img-placeholder {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.2em;
-      color: #3a3a3a;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+      letter-spacing: 0.2em; color: #3a3a3a;
     }
-    /* Fake scan-lines on image */
     .product-img::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 1;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent 0px, transparent 3px,
-        rgba(0,0,0,0.12) 3px, rgba(0,0,0,0.12) 4px
-      );
+      content: ''; position: absolute; inset: 0; z-index: 2;
+      background: repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(0,0,0,0.10) 3px, rgba(0,0,0,0.10) 4px);
+      pointer-events: none;
     }
     .edition-pill {
-      position: absolute;
-      top: 0.75rem; left: 0.75rem; z-index: 2;
-      background: #deff9a;
-      color: #0d0d0d;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+      position: absolute; top: 0.75rem; left: 0.75rem; z-index: 3;
+      background: #deff9a; color: #0d0d0d;
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
       padding: 0.2rem 0.6rem;
     }
-
     .add-btn {
-      display: block; width: 100%;
-      padding: 0.85rem;
-      background: transparent;
-      border: 1px solid #3a3a3a;
-      color: #aaa;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      cursor: pointer;
+      display: block; width: 100%; padding: 0.85rem;
+      background: transparent; border: 1px solid #3a3a3a; color: #aaa;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
+      letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
       transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
-    .add-btn:hover {
-      background: #deff9a;
-      color: #0d0d0d;
-      border-color: #deff9a;
+    .add-btn:hover { background: #deff9a; color: #0d0d0d; border-color: #deff9a; }
+    .add-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .add-btn.added { background: #deff9a; color: #0d0d0d; border-color: #deff9a; }
+
+    .stock-bar-track { height: 3px; background: #2a2a2a; border-radius: 2px; overflow: hidden; }
+    .stock-bar-fill { height: 100%; background: #deff9a; border-radius: 2px; transition: width 1s ease; }
+
+    /* ── CART DRAWER ──────────────────────────────────── */
+    #cart-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      z-index: 900; opacity: 0; pointer-events: none;
+      transition: opacity 0.35s;
+      backdrop-filter: blur(4px);
+    }
+    #cart-overlay.open { opacity: 1; pointer-events: all; }
+
+    #cart-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: min(420px, 100vw);
+      background: #111; border-left: 1px solid #2a2a2a;
+      z-index: 1000; display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #cart-drawer.open { transform: translateX(0); }
+
+    .cart-header {
+      padding: 1.5rem; border-bottom: 1px solid #2a2a2a;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .cart-close {
+      width: 36px; height: 36px; border: 1px solid #2a2a2a;
+      background: transparent; color: #aaa; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .cart-close:hover { border-color: #deff9a; color: #deff9a; }
+
+    #cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
+    #cart-items::-webkit-scrollbar { width: 4px; }
+    #cart-items::-webkit-scrollbar-track { background: #1a1a1a; }
+    #cart-items::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 2px; }
+
+    .cart-item {
+      display: grid; grid-template-columns: 70px 1fr auto;
+      gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #1e1e1e;
+      align-items: center;
+    }
+    .cart-item-img {
+      width: 70px; height: 90px;
+      background: #2a2a2a; object-fit: cover;
+      display: block;
+    }
+    .cart-item-img-placeholder {
+      width: 70px; height: 90px; background: #2a2a2a;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.5rem; letter-spacing: 0.1em; color: #3a3a3a;
+      font-family: 'Bebas Neue', sans-serif; text-align: center;
+    }
+    .cart-item-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: #fff; line-height: 1.1; }
+    .cart-item-cat { font-size: 0.7rem; letter-spacing: 0.2em; color: #deff9a; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .cart-item-price { font-size: 0.9rem; color: #aaa; margin-top: 0.3rem; }
+
+    .qty-control { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+    .qty-btn {
+      width: 26px; height: 26px; border: 1px solid #3a3a3a;
+      background: transparent; color: #aaa; cursor: pointer;
+      font-size: 1rem; display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s; line-height: 1;
+    }
+    .qty-btn:hover { border-color: #deff9a; color: #deff9a; }
+    .qty-display { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: #fff; min-width: 20px; text-align: center; }
+
+    .remove-btn {
+      background: transparent; border: none; color: #555;
+      cursor: pointer; padding: 4px; transition: color 0.2s;
+      align-self: flex-start;
+    }
+    .remove-btn:hover { color: #ff5c5c; }
+
+    .cart-empty {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 2rem; gap: 1rem;
+    }
+    .cart-empty-icon { color: #2a2a2a; }
+    .cart-empty-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: #3a3a3a; }
+    .cart-empty-sub { font-size: 0.85rem; color: #555; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .cart-footer {
+      padding: 1.5rem; border-top: 1px solid #2a2a2a; flex-shrink: 0;
+      background: #0d0d0d;
+    }
+    .cart-summary-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .cart-summary-label { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: #555; }
+    .cart-summary-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: #aaa; }
+    .cart-total-row { display: flex; justify-content: space-between; align-items: center; margin: 1rem 0; padding-top: 0.75rem; border-top: 1px solid #2a2a2a; }
+    .cart-total-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: #fff; letter-spacing: 0.1em; }
+    .cart-total-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: #deff9a; }
+
+    .checkout-btn {
+      display: block; width: 100%; padding: 1.1rem;
+      background: #deff9a; color: #0d0d0d;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      transition: background 0.2s, transform 0.1s;
+    }
+    .checkout-btn:hover { background: #fff; transform: translateY(-1px); }
+    .checkout-btn:disabled { background: #3a3a3a; color: #555; cursor: not-allowed; transform: none; }
+
+    /* ── CHECKOUT MODAL ───────────────────────────────── */
+    #checkout-overlay {
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+      overflow-y: auto; padding: 2rem 1rem;
+    }
+    #checkout-overlay.open { opacity: 1; pointer-events: all; }
+
+    #checkout-modal {
+      max-width: 680px; margin: 0 auto;
+      background: #111; border: 1px solid #2a2a2a;
+      position: relative; transform: translateY(30px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #checkout-overlay.open #checkout-modal { transform: translateY(0); }
+
+    .checkout-section { padding: 2rem; border-bottom: 1px solid #1e1e1e; }
+    .checkout-section:last-child { border-bottom: none; }
+    .checkout-section-title {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
+      color: #fff; letter-spacing: 0.08em; margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .checkout-section-num {
+      width: 28px; height: 28px; background: #deff9a; color: #0d0d0d;
+      font-size: 0.9rem; display: flex; align-items: center;
+      justify-content: center; font-weight: 700; flex-shrink: 0;
     }
 
-    /* ─── Stock bar ─────────────────────────────────────────── */
-    .stock-bar-track {
-      height: 3px;
-      background: #2a2a2a;
-      border-radius: 2px;
-      overflow: hidden;
+    /* Checkout order summary */
+    .order-item {
+      display: flex; justify-content: space-between;
+      align-items: center; padding: 0.6rem 0;
+      border-bottom: 1px solid #1a1a1a; font-size: 0.95rem;
     }
-    .stock-bar-fill {
-      height: 100%;
-      background: #deff9a;
-      border-radius: 2px;
-      transition: width 1s ease;
+    .order-item:last-child { border-bottom: none; }
+    .order-item-name { color: #ccc; }
+    .order-item-qty { color: #555; font-size: 0.8rem; margin-left: 0.5rem; }
+    .order-item-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: #fff; }
+
+    /* Payment method tabs */
+    .payment-methods { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; }
+    .payment-tab {
+      flex: 1; min-width: 120px; padding: 0.75rem 1rem;
+      border: 1px solid #2a2a2a; background: transparent;
+      color: #aaa; cursor: pointer; text-align: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: all 0.2s; display: flex; flex-direction: column;
+      align-items: center; gap: 0.4rem;
+    }
+    .payment-tab:hover { border-color: #555; color: #fff; }
+    .payment-tab.active { border-color: #deff9a; color: #deff9a; background: rgba(222,255,154,0.05); }
+    .payment-tab svg { width: 22px; height: 22px; }
+
+    .payment-panel { display: none; }
+    .payment-panel.active { display: block; }
+
+    /* Form fields */
+    .field-group { margin-bottom: 1.25rem; }
+    .field-row { display: grid; gap: 1rem; }
+    .field-row.cols-2 { grid-template-columns: 1fr 1fr; }
+    .field-row.cols-3 { grid-template-columns: 2fr 1fr 1fr; }
+    .field-label {
+      display: block; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: #555; margin-bottom: 0.5rem;
+    }
+    .field-input {
+      width: 100%; background: #1a1a1a; border: 1px solid #2a2a2a;
+      color: #fff; padding: 0.75rem 1rem;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 1rem;
+      letter-spacing: 0.05em; outline: none;
+      transition: border-color 0.2s;
+    }
+    .field-input:focus { border-color: #deff9a; }
+    .field-input.error { border-color: #ff5c5c; }
+    .field-error {
+      display: none; font-size: 0.72rem; color: #ff5c5c;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem;
+    }
+    .field-error.visible { display: block; }
+    .field-input::placeholder { color: #3a3a3a; }
+
+    /* Card number formatting */
+    .card-icon { position: relative; }
+    .card-type-badge {
+      position: absolute; right: 0.75rem; top: 50%;
+      transform: translateY(-50%); font-size: 0.65rem;
+      font-weight: 700; letter-spacing: 0.1em; color: #deff9a;
+      text-transform: uppercase;
     }
 
-    /* ─── Footer ────────────────────────────────────────────── */
-    footer {
-      border-top: 1px solid #2a2a2a;
+    /* PayPal panel */
+    .paypal-info {
+      background: #1a1a1a; border: 1px solid #2a2a2a;
+      padding: 1.5rem; text-align: center;
     }
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.5rem;
-      letter-spacing: 0.05em;
-      color: #fff;
+    .paypal-logo {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2rem;
+      letter-spacing: 0.05em; margin-bottom: 0.75rem;
     }
+    .paypal-logo .pp-blue { color: #009cde; }
+    .paypal-logo .pp-dark { color: #003087; }
+
+    /* Delivery / Transfer panels */
+    .info-panel {
+      background: #1a1a1a; border: 1px solid #2a2a2a; padding: 1.5rem;
+    }
+    .info-panel p { color: #888; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.5rem; }
+    .info-panel strong { color: #deff9a; }
+
+    /* Submit button */
+    .submit-btn {
+      width: 100%; padding: 1.2rem;
+      background: #deff9a; color: #0d0d0d;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      transition: background 0.2s, transform 0.1s;
+      display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+    }
+    .submit-btn:hover { background: #fff; transform: translateY(-1px); }
+    .submit-btn:disabled { background: #2a2a2a; color: #555; cursor: not-allowed; transform: none; }
+
+    .spinner {
+      width: 18px; height: 18px; border: 2px solid rgba(0,0,0,0.3);
+      border-top-color: #0d0d0d; border-radius: 50%;
+      animation: spin 0.7s linear infinite; display: none;
+    }
+    .spinner.visible { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── SUCCESS SCREEN ───────────────────────────────── */
+    #success-screen {
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 4rem 2rem; min-height: 400px;
+    }
+    #success-screen.visible { display: flex; }
+    .success-check {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(222,255,154,0.1); border: 2px solid #deff9a;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem; animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes pop-in { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .success-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: #fff; margin-bottom: 0.5rem; }
+    .success-sub { color: #888; font-size: 1rem; letter-spacing: 0.08em; max-width: 340px; margin: 0 auto 2rem; }
+    .success-order-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: #deff9a; letter-spacing: 0.2em; }
+
+    /* ── Toast ────────────────────────────────────────── */
+    #toast {
+      position: fixed; bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      z-index: 2000; pointer-events: none;
+      opacity: 0; transition: opacity 0.3s, transform 0.3s;
+      min-width: 240px; max-width: 90vw;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast-inner {
+      padding: 0.85rem 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .toast-inner.success { background: #deff9a; color: #0d0d0d; }
+    .toast-inner.error { background: #ff5c5c; color: #fff; }
+    .toast-inner.info { background: #1a1a1a; color: #deff9a; border: 1px solid #2a2a2a; }
+
+    /* ── Footer ───────────────────────────────────────── */
+    footer { border-top: 1px solid #2a2a2a; position: relative; z-index: 1; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 0.05em; color: #fff; }
     .footer-logo span { color: #deff9a; }
     .ig-btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      border: 1px solid #2a2a2a;
-      padding: 0.5rem 1.25rem;
-      color: #aaa;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
+      border: 1px solid #2a2a2a; padding: 0.5rem 1.25rem;
+      color: #aaa; font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; transition: border-color 0.2s, color 0.2s;
     }
     .ig-btn:hover { border-color: #deff9a; color: #deff9a; }
 
-    /* ─── Scroll fade-in ────────────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
+    /* ── Scroll reveal ────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Cart badge pulse ─────────────────────────────── */
+    @keyframes badge-pop { 0% { transform: scale(1); } 50% { transform: scale(1.5); } 100% { transform: scale(1); } }
+    .badge-pop { animation: badge-pop 0.3s ease; }
   </style>
 </head>
 <body>
 
-<!-- ╔══════════════════════════════════════════╗
-     ║  NAVBAR                                  ║
-     ╚══════════════════════════════════════════╝ -->
+<!-- ═══════════════════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════════════════ -->
 <nav id="navbar" class="px-5 md:px-10 py-5">
   <div class="max-w-7xl mx-auto flex items-center justify-between">
 
-    <!-- Logo -->
-    <a href="#" class="font-display text-2xl tracking-widest text-white leading-none">
+    <a href="#" class="font-display text-2xl tracking-widest text-white leading-none" style="position:relative;z-index:1">
       STREET <span class="text-neon">STYLE</span> SV
     </a>
 
-    <!-- Desktop links -->
     <ul class="hidden md:flex items-center gap-10">
       <li><a href="#catalogo" class="nav-link">Shop</a></li>
-      <li><a href="#" class="nav-link">Cultura</a></li>
+      <li><a href="#cultura" class="nav-link">Cultura</a></li>
       <li><a href="#footer" class="nav-link">Contacto</a></li>
     </ul>
 
-    <!-- Cart + hamburger -->
     <div class="flex items-center gap-4">
-      <!-- Cart icon -->
-      <button aria-label="Carrito" class="relative text-white hover:text-neon transition-colors">
+      <!-- Cart button -->
+      <button id="cart-btn" aria-label="Carrito" class="relative text-white hover:text-neon transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
         </svg>
-        <span class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-neon text-carbon text-[0.55rem] font-bold flex items-center justify-center rounded-full leading-none">3</span>
+        <!-- Badge: starts at 0, updates via JS -->
+        <span id="cart-badge"
+          class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-neon text-carbon text-[0.55rem] font-bold flex items-center justify-center rounded-full leading-none">
+          0
+        </span>
       </button>
 
-      <!-- Hamburger (mobile) -->
+      <!-- Hamburger -->
       <button id="hamburger" aria-label="Menú" class="md:hidden flex flex-col gap-[5px] p-1">
         <span class="hamburger-bar block w-6 h-[2px] bg-white transition-all duration-300"></span>
         <span class="hamburger-bar block w-6 h-[2px] bg-white transition-all duration-300"></span>
@@ -392,48 +559,35 @@
     </div>
   </div>
 
-  <!-- Mobile menu -->
   <div id="mobile-menu">
     <a href="#catalogo" class="nav-link text-lg">Shop</a>
-    <a href="#" class="nav-link text-lg">Cultura</a>
+    <a href="#cultura" class="nav-link text-lg">Cultura</a>
     <a href="#footer" class="nav-link text-lg">Contacto</a>
   </div>
 </nav>
 
 
-<!-- ╔══════════════════════════════════════════╗
-     ║  HERO                                    ║
-     ╚══════════════════════════════════════════╝ -->
+<!-- ═══════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════ -->
 <section id="hero">
   <div class="hero-bg"></div>
-
-  <!-- Floating badge -->
   <div class="drop-badge hidden sm:flex">
-    <div class="drop-badge-inner">
-      🇸🇻<br>SAN MIGUEL<br>EL SALVADOR<br>2025
-    </div>
+    <div class="drop-badge-inner">🇸🇻<br>SAN MIGUEL<br>EL SALVADOR<br>2025</div>
   </div>
-
-  <!-- Content -->
   <div class="relative z-10 max-w-7xl mx-auto w-full">
     <div class="hero-tag">DROP 01 — Edición Limitada</div>
-    <h1 class="hero-title">
-      TOROGOZ<br><span>EDITION</span>
-    </h1>
+    <h1 class="hero-title">TOROGOZ<br><span>EDITION</span></h1>
     <p class="hero-sub">Raíces urbanas.<br>Unidades estrictamente limitadas.</p>
     <a href="#catalogo" class="hero-cta">EXPLORAR EL DROP</a>
-
-    <!-- Countdown -->
-    <div class="mt-8 flex items-center gap-1 text-muted text-sm font-body tracking-widest uppercase">
+    <div class="mt-8 flex items-center gap-2 font-body text-sm tracking-widest uppercase" style="color:#555">
       <span class="w-2 h-2 rounded-full bg-neon animate-pulse inline-block"></span>
-      &nbsp;Drop activo — cierra pronto
+      Drop activo — cierra pronto
     </div>
   </div>
-
-  <!-- Scroll hint -->
   <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
     <span class="font-body text-xs tracking-[0.2em] uppercase text-white">Scroll</span>
-    <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
       <rect x="1" y="1" width="14" height="22" rx="7" stroke="white" stroke-width="1.5"/>
       <rect x="7" y="5" width="2" height="5" rx="1" fill="white" class="animate-bounce"/>
     </svg>
@@ -441,72 +595,68 @@
 </section>
 
 
-<!-- ╔══════════════════════════════════════════╗
-     ║  MARQUEE                                 ║
-     ╚══════════════════════════════════════════╝ -->
+<!-- ═══════════════════════════════════════════════════
+     MARQUEE
+═══════════════════════════════════════════════════ -->
 <div class="marquee-wrap">
-  <!-- Duplicamos el track para loop infinito suave -->
   <div class="marquee-track">
-    <span>ENVÍOS GRATIS EN LA UGB</span>
-    <span>—</span>
-    <span>SAN MIGUEL 🇸🇻🔥</span>
-    <span>—</span>
-    <span>STOCK LIMITADO</span>
-    <span>—</span>
-    <span>DROP 01: TOROGOZ EDITION</span>
-    <span>—</span>
-    <span>ENVÍOS GRATIS EN LA UGB</span>
-    <span>—</span>
-    <span>SAN MIGUEL 🇸🇻🔥</span>
-    <span>—</span>
-    <span>STOCK LIMITADO</span>
-    <span>—</span>
-    <span>DROP 01: TOROGOZ EDITION</span>
-    <span>—</span>
+    <span>ENVÍOS GRATIS EN LA UGB</span><span>—</span>
+    <span>SAN MIGUEL 🇸🇻🔥</span><span>—</span>
+    <span>STOCK LIMITADO</span><span>—</span>
+    <span>DROP 01: TOROGOZ EDITION</span><span>—</span>
+    <span>ENVÍOS GRATIS EN LA UGB</span><span>—</span>
+    <span>SAN MIGUEL 🇸🇻🔥</span><span>—</span>
+    <span>STOCK LIMITADO</span><span>—</span>
+    <span>DROP 01: TOROGOZ EDITION</span><span>—</span>
   </div>
 </div>
 
 
-<!-- ╔══════════════════════════════════════════╗
-     ║  CATÁLOGO                                ║
-     ╚══════════════════════════════════════════╝ -->
-<section id="catalogo" class="py-20 px-5 md:px-10">
+<!-- ═══════════════════════════════════════════════════
+     CATÁLOGO
+═══════════════════════════════════════════════════ -->
+<section id="catalogo" class="py-20 px-5 md:px-10" style="position:relative;z-index:1">
   <div class="max-w-7xl mx-auto">
 
-    <!-- Header -->
     <div class="mb-14 reveal">
-      <p class="section-label">Catálogo / Drop 01</p>
+      <span class="section-label">Catálogo / Drop 01</span>
       <h2 class="section-title">PIEZAS<br>DEL DROP</h2>
-      <p class="mt-4 text-muted font-body text-lg tracking-wide max-w-md">
+      <p class="mt-4 font-body text-lg tracking-wide max-w-md" style="color:#555">
         Cada pieza es única. Cuando se acabe el stock, se acaba para siempre.
       </p>
     </div>
 
-    <!-- Product grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
       <!-- ── Producto 1: Camiseta ── -->
       <div class="product-card reveal" style="transition-delay:0.1s">
         <div class="product-img">
           <span class="edition-pill">LIMITADO</span>
+          <div class="product-img-placeholder">STREET STYLE SV</div>
+          <!-- Swap src with real image: <img src="./img/camisa-torogoz.png" alt="Torogoz Tee" class="w-full h-full object-cover"> -->
         </div>
         <div class="p-5">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <p class="text-neon font-body text-xs tracking-[0.2em] uppercase mb-1">Camiseta</p>
+              <p class="font-body text-xs tracking-[0.2em] uppercase mb-1" style="color:#deff9a">Camiseta</p>
               <h3 class="font-display text-2xl text-white leading-none">TOROGOZ TEE</h3>
             </div>
             <span class="font-display text-2xl text-white">$18</span>
           </div>
-          <!-- Stock bar -->
           <div class="mb-1 flex justify-between items-center">
-            <span class="font-body text-xs text-muted tracking-wide uppercase">Stock</span>
-            <span class="font-body text-xs text-neon tracking-wide">12 / 50 restantes</span>
+            <span class="font-body text-xs tracking-wide uppercase" style="color:#555">Stock</span>
+            <span class="font-body text-xs tracking-wide" style="color:#deff9a">12 / 50 restantes</span>
           </div>
-          <div class="stock-bar-track mb-5">
-            <div class="stock-bar-fill" style="width:76%"></div>
-          </div>
-          <button class="add-btn" onclick="addToCart(this, 'Torogoz Tee')">Añadir al carrito</button>
+          <div class="stock-bar-track mb-5"><div class="stock-bar-fill" style="width:76%"></div></div>
+          <button class="add-btn"
+            data-id="1"
+            data-name="Torogoz Tee"
+            data-category="Camiseta"
+            data-price="18"
+            data-stock="12"
+            onclick="addToCart(this)">
+            Añadir al carrito
+          </button>
         </div>
       </div>
 
@@ -514,23 +664,30 @@
       <div class="product-card reveal" style="transition-delay:0.2s">
         <div class="product-img">
           <span class="edition-pill">SOLD OUT PRONTO</span>
+          <div class="product-img-placeholder">STREET STYLE SV</div>
         </div>
         <div class="p-5">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <p class="text-neon font-body text-xs tracking-[0.2em] uppercase mb-1">Sudadera</p>
+              <p class="font-body text-xs tracking-[0.2em] uppercase mb-1" style="color:#deff9a">Sudadera</p>
               <h3 class="font-display text-2xl text-white leading-none">VOLCÁN HOODIE</h3>
             </div>
             <span class="font-display text-2xl text-white">$32</span>
           </div>
           <div class="mb-1 flex justify-between items-center">
-            <span class="font-body text-xs text-muted tracking-wide uppercase">Stock</span>
-            <span class="font-body text-xs text-neon tracking-wide">5 / 30 restantes</span>
+            <span class="font-body text-xs tracking-wide uppercase" style="color:#555">Stock</span>
+            <span class="font-body text-xs tracking-wide" style="color:#deff9a">5 / 30 restantes</span>
           </div>
-          <div class="stock-bar-track mb-5">
-            <div class="stock-bar-fill" style="width:83%"></div>
-          </div>
-          <button class="add-btn" onclick="addToCart(this, 'Volcán Hoodie')">Añadir al carrito</button>
+          <div class="stock-bar-track mb-5"><div class="stock-bar-fill" style="width:83%"></div></div>
+          <button class="add-btn"
+            data-id="2"
+            data-name="Volcán Hoodie"
+            data-category="Sudadera"
+            data-price="32"
+            data-stock="5"
+            onclick="addToCart(this)">
+            Añadir al carrito
+          </button>
         </div>
       </div>
 
@@ -538,89 +695,82 @@
       <div class="product-card reveal" style="transition-delay:0.3s">
         <div class="product-img">
           <span class="edition-pill">LIMITADO</span>
+          <div class="product-img-placeholder">STREET STYLE SV</div>
         </div>
         <div class="p-5">
           <div class="flex items-start justify-between mb-3">
             <div>
-              <p class="text-neon font-body text-xs tracking-[0.2em] uppercase mb-1">Gorra</p>
+              <p class="font-body text-xs tracking-[0.2em] uppercase mb-1" style="color:#deff9a">Gorra</p>
               <h3 class="font-display text-2xl text-white leading-none">URBAN CAP SV</h3>
             </div>
             <span class="font-display text-2xl text-white">$14</span>
           </div>
           <div class="mb-1 flex justify-between items-center">
-            <span class="font-body text-xs text-muted tracking-wide uppercase">Stock</span>
-            <span class="font-body text-xs text-neon tracking-wide">20 / 40 restantes</span>
+            <span class="font-body text-xs tracking-wide uppercase" style="color:#555">Stock</span>
+            <span class="font-body text-xs tracking-wide" style="color:#deff9a">20 / 40 restantes</span>
           </div>
-          <div class="stock-bar-track mb-5">
-            <div class="stock-bar-fill" style="width:50%"></div>
-          </div>
-          <button class="add-btn" onclick="addToCart(this, 'Urban Cap SV')">Añadir al carrito</button>
+          <div class="stock-bar-track mb-5"><div class="stock-bar-fill" style="width:50%"></div></div>
+          <button class="add-btn"
+            data-id="3"
+            data-name="Urban Cap SV"
+            data-category="Gorra"
+            data-price="14"
+            data-stock="20"
+            onclick="addToCart(this)">
+            Añadir al carrito
+          </button>
         </div>
       </div>
 
-    </div><!-- /grid -->
+    </div>
   </div>
 </section>
 
 
-<!-- ╔══════════════════════════════════════════╗
-     ║  BANNER CULTURA                          ║
-     ╚══════════════════════════════════════════╝ -->
-<section class="relative py-24 px-5 md:px-10 overflow-hidden reveal">
-  <div class="absolute inset-0 bg-neon opacity-[0.03]"></div>
-  <div class="absolute inset-0" style="background: repeating-linear-gradient(-45deg, transparent 0, transparent 20px, rgba(222,255,154,0.03) 20px, rgba(222,255,154,0.03) 22px);"></div>
-  <div class="relative max-w-7xl mx-auto text-center">
-    <p class="section-label inline-block border-l-0 pl-0 mb-4">🇸🇻 Hecho en El Salvador</p>
-    <h2 class="font-display text-5xl md:text-7xl text-white mb-6 leading-none">
-      CULTURA<br><span class="text-neon">CALLEJERA</span><br>GLOBAL
+<!-- ═══════════════════════════════════════════════════
+     CULTURA
+═══════════════════════════════════════════════════ -->
+<section id="cultura" class="relative py-24 px-5 md:px-10 overflow-hidden reveal" style="background:#1a1a1a">
+  <div class="absolute inset-0" style="background: repeating-linear-gradient(-45deg, transparent 0, transparent 20px, rgba(222,255,154,0.02) 20px, rgba(222,255,154,0.02) 22px);"></div>
+  <div class="relative max-w-4xl mx-auto text-center">
+    <span class="section-label" style="border-left:none;padding-left:0;display:inline-block;margin-bottom:1rem">🇸🇻 Nuestra Historia</span>
+    <h2 class="font-display mb-8 leading-none" style="font-size:clamp(2.5rem,8vw,4.5rem);color:#fff">
+      CÓDIGO Y<br><span class="text-neon">CALLE</span>
     </h2>
-    <p class="font-body text-muted text-xl tracking-wide max-w-lg mx-auto mb-8">
-      Del barrio de San Miguel para el mundo. Heavy cotton, calidad premium, identidad auténtica.
-    </p>
-    <a href="#" class="inline-block border border-neon text-neon font-display text-xl tracking-widest px-10 py-4 hover:bg-neon hover:text-carbon transition-all duration-200">
-      NUESTRA HISTORIA
-    </a>
+    <div class="font-body text-lg md:text-xl tracking-wide max-w-2xl mx-auto space-y-5" style="color:#888">
+      <p>Somos estudiantes de quinto año de Ingeniería en Sistemas y Redes Informáticas en la UGB. Nos apasiona la tecnología y la infraestructura digital, pero también respiramos la cultura urbana.</p>
+      <p><strong class="text-white">Street Style SV</strong> nació de la necesidad de romper la monotonía visual y dar un estilo único. Queríamos crear lo que no encontrábamos en las vitrinas: prendas con diseños exclusivos que representen nuestra identidad local sin perder el nivel global.</p>
+      <p>No venimos a hacer ropa en masa. Cada Drop es de edición estrictamente limitada, diseñado para quienes buscan destacar tanto en el campus como en la calle.</p>
+    </div>
   </div>
 </section>
 
 
-<!-- ╔══════════════════════════════════════════╗
-     ║  FOOTER                                  ║
-     ╚══════════════════════════════════════════╝ -->
+<!-- ═══════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════ -->
 <footer id="footer" class="py-16 px-5 md:px-10">
   <div class="max-w-7xl mx-auto">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-10">
-
-      <!-- Brand -->
       <div>
         <div class="footer-logo">STREET <span>STYLE</span> SV</div>
-        <p class="font-body text-muted text-base tracking-wide mt-2">
-          San Miguel, El Salvador 🇸🇻<br>
-          Ropa urbana de edición limitada.
+        <p class="font-body text-base tracking-wide mt-2" style="color:#555">
+          San Miguel, El Salvador 🇸🇻<br>Ropa urbana de edición limitada.
         </p>
       </div>
-
-      <!-- Instagram -->
       <div class="flex flex-col gap-3">
         <a href="https://instagram.com/streetstyle.sv" target="_blank" rel="noopener noreferrer" class="ig-btn">
-          <!-- Instagram SVG icon -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           @streetstyle.sv
         </a>
-        <a href="#" class="ig-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
+        <a href="https://wa.me/50321212828" class="ig-btn" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           WhatsApp / Pedidos
         </a>
       </div>
     </div>
-
-    <!-- Divider -->
-    <div class="border-t border-smoke pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-muted font-body text-sm tracking-wide">
-      <span>© 2025 Street Style SV. Todos los derechos reservados.</span>
+    <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 font-body text-sm tracking-wide" style="border-top:1px solid #2a2a2a;color:#555">
+      <span>© 2026 Street Style SV. Todos los derechos reservados.</span>
       <div class="flex gap-6">
         <a href="#" class="hover:text-neon transition-colors">Términos</a>
         <a href="#" class="hover:text-neon transition-colors">Privacidad</a>
@@ -631,91 +781,656 @@
 </footer>
 
 
-<!-- ╔══════════════════════════════════════════╗
-     ║  TOAST NOTIFICATION                      ║
-     ╚══════════════════════════════════════════╝ -->
-<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] pointer-events-none"
-     style="opacity:0; transition: opacity 0.3s, transform 0.3s; transform: translateX(-50%) translateY(12px);">
-  <div class="bg-neon text-carbon font-display text-base tracking-widest px-6 py-3 flex items-center gap-3 shadow-2xl"
-       style="clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-    <span id="toast-msg">AÑADIDO AL CARRITO</span>
+<!-- ═══════════════════════════════════════════════════
+     CART DRAWER
+═══════════════════════════════════════════════════ -->
+<div id="cart-overlay" onclick="closeCart()"></div>
+
+<aside id="cart-drawer" role="dialog" aria-modal="true" aria-label="Carrito de compras">
+  <div class="cart-header">
+    <div>
+      <span class="section-label" style="margin-bottom:0.2rem">Tu Carrito</span>
+      <p class="font-display text-2xl text-white">DROP 01</p>
+    </div>
+    <button class="cart-close" onclick="closeCart()" aria-label="Cerrar carrito">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- Items list -->
+  <div id="cart-items"></div>
+
+  <!-- Footer with totals + checkout -->
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-summary-row">
+      <span class="cart-summary-label">Subtotal</span>
+      <span class="cart-summary-value" id="cart-subtotal">$0.00</span>
+    </div>
+    <div class="cart-summary-row">
+      <span class="cart-summary-label">Envío</span>
+      <span class="cart-summary-value" style="color:#deff9a">GRATIS 🇸🇻</span>
+    </div>
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-value" id="cart-total">$0.00</span>
+    </div>
+    <button class="checkout-btn" onclick="openCheckout()">
+      Proceder al Pago →
+    </button>
+  </div>
+</aside>
+
+
+<!-- ═══════════════════════════════════════════════════
+     CHECKOUT MODAL
+═══════════════════════════════════════════════════ -->
+<div id="checkout-overlay">
+  <div id="checkout-modal">
+
+    <!-- ── Header ── -->
+    <div class="cart-header">
+      <div>
+        <span class="section-label" style="margin-bottom:0.2rem">Finalizar Compra</span>
+        <p class="font-display text-2xl text-white">CHECKOUT</p>
+      </div>
+      <button class="cart-close" onclick="closeCheckout()" aria-label="Cerrar checkout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- ── Normal checkout flow ── -->
+    <div id="checkout-form-area">
+
+      <!-- 1. Order summary -->
+      <div class="checkout-section">
+        <h3 class="checkout-section-title">
+          <span class="checkout-section-num">1</span>
+          Resumen del Pedido
+        </h3>
+        <div id="checkout-order-items"></div>
+        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid #2a2a2a;display:flex;justify-content:space-between;align-items:center">
+          <span class="font-display text-lg text-white tracking-wide">TOTAL A PAGAR</span>
+          <span class="font-display text-3xl" style="color:#deff9a" id="checkout-total">$0.00</span>
+        </div>
+      </div>
+
+      <!-- 2. Contact info -->
+      <div class="checkout-section">
+        <h3 class="checkout-section-title">
+          <span class="checkout-section-num">2</span>
+          Información de Contacto
+        </h3>
+        <div class="field-row cols-2">
+          <div class="field-group">
+            <label class="field-label" for="contact-name">Nombre completo *</label>
+            <input id="contact-name" type="text" class="field-input" placeholder="Tu nombre" autocomplete="name" />
+            <span class="field-error" id="err-contact-name">Ingresa tu nombre</span>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="contact-phone">Teléfono *</label>
+            <input id="contact-phone" type="tel" class="field-input" placeholder="7000-0000" autocomplete="tel" />
+            <span class="field-error" id="err-contact-phone">Ingresa tu teléfono</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="contact-address">Dirección de entrega *</label>
+          <input id="contact-address" type="text" class="field-input" placeholder="Col. Centro, San Miguel, El Salvador" autocomplete="street-address" />
+          <span class="field-error" id="err-contact-address">Ingresa tu dirección</span>
+        </div>
+      </div>
+
+      <!-- 3. Payment method -->
+      <div class="checkout-section">
+        <h3 class="checkout-section-title">
+          <span class="checkout-section-num">3</span>
+          Método de Pago
+        </h3>
+
+        <div class="payment-methods">
+          <button class="payment-tab active" data-method="card" onclick="selectPayment('card', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Tarjeta
+          </button>
+          <button class="payment-tab" data-method="paypal" onclick="selectPayment('paypal', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 11C4.5 11 3 9.5 3 7.5S4.5 4 7 4h7c2 0 3.5 1.5 3 3.5C16.5 9 15 10.5 13 11H7z"/><path d="M6 16c-2 0-3.5-1.2-3-3.5C3.5 10.5 5 9 7 9h6c2 0 3 1.5 2.5 3.5C15 14.5 13.5 16 11.5 16H6z"/></svg>
+            PayPal
+          </button>
+          <button class="payment-tab" data-method="transfer" onclick="selectPayment('transfer', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4h16v4H4z"/><path d="M4 12h16v8H4z"/><path d="M9 16h6"/></svg>
+            Transferencia
+          </button>
+          <button class="payment-tab" data-method="delivery" onclick="selectPayment('delivery', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+            Contra entrega
+          </button>
+        </div>
+
+        <!-- Credit/Debit Card panel -->
+        <div class="payment-panel active" id="panel-card">
+          <div class="field-group card-icon" style="position:relative">
+            <label class="field-label" for="card-number">Número de tarjeta *</label>
+            <input id="card-number" type="text" class="field-input" placeholder="0000 0000 0000 0000"
+              maxlength="19" autocomplete="cc-number" oninput="formatCardNumber(this)" />
+            <span class="card-type-badge" id="card-type-badge"></span>
+            <span class="field-error" id="err-card-number">Número de tarjeta inválido</span>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="card-name">Nombre del titular *</label>
+            <input id="card-name" type="text" class="field-input" placeholder="COMO APARECE EN LA TARJETA"
+              autocomplete="cc-name" oninput="this.value = this.value.toUpperCase()" />
+            <span class="field-error" id="err-card-name">Ingresa el nombre del titular</span>
+          </div>
+          <div class="field-row cols-2">
+            <div class="field-group">
+              <label class="field-label" for="card-expiry">Vencimiento *</label>
+              <input id="card-expiry" type="text" class="field-input" placeholder="MM/AA"
+                maxlength="5" autocomplete="cc-exp" oninput="formatExpiry(this)" />
+              <span class="field-error" id="err-card-expiry">Fecha inválida</span>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="card-cvv">CVV *</label>
+              <input id="card-cvv" type="text" class="field-input" placeholder="•••"
+                maxlength="4" autocomplete="cc-csc" oninput="this.value = this.value.replace(/\D/g,'')" />
+              <span class="field-error" id="err-card-cvv">CVV inválido</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PayPal panel -->
+        <div class="payment-panel" id="panel-paypal">
+          <div class="paypal-info">
+            <div class="paypal-logo">
+              <span class="pp-blue">Pay</span><span class="pp-dark">Pal</span>
+            </div>
+            <p class="font-body text-base tracking-wide mb-4" style="color:#888">
+              Serás redirigido a PayPal para completar tu pago de forma segura.
+            </p>
+            <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;font-size:0.75rem;color:#555;text-transform:uppercase;letter-spacing:0.15em">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Pago 100% seguro con cifrado SSL
+            </div>
+          </div>
+        </div>
+
+        <!-- Bank Transfer panel -->
+        <div class="payment-panel" id="panel-transfer">
+          <div class="info-panel">
+            <p><strong>Banco:</strong> Banco Agrícola</p>
+            <p><strong>Cuenta:</strong> 3140-123456-7</p>
+            <p><strong>Titular:</strong> Street Style SV S.A. de C.V.</p>
+            <p style="margin-top:1rem;font-size:0.85rem">
+              Después de transferir, envía el comprobante a nuestro WhatsApp con tu nombre de pedido.
+            </p>
+          </div>
+        </div>
+
+        <!-- Cash on Delivery panel -->
+        <div class="payment-panel" id="panel-delivery">
+          <div class="info-panel">
+            <p>Pagas en efectivo al momento de recibir tu pedido.</p>
+            <p><strong>Zona de entrega:</strong> San Miguel y municipios cercanos.</p>
+            <p><strong>Tiempo de entrega:</strong> 1-3 días hábiles.</p>
+            <p style="margin-top:1rem;font-size:0.85rem">
+              Un representante de Street Style SV te contactará para coordinar la entrega.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Submit ── -->
+      <div class="checkout-section" style="padding-top:1rem;padding-bottom:1.5rem">
+        <button class="submit-btn" id="submit-btn" onclick="processPayment()">
+          <div class="spinner" id="pay-spinner"></div>
+          <span id="submit-label">CONFIRMAR Y PAGAR</span>
+        </button>
+        <p class="font-body text-xs text-center mt-3 tracking-wide" style="color:#3a3a3a;text-transform:uppercase;letter-spacing:0.15em">
+          🔒 Pago seguro — Street Style SV
+        </p>
+      </div>
+
+    </div><!-- /checkout-form-area -->
+
+    <!-- ── Success screen ── -->
+    <div id="success-screen">
+      <div class="success-check">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#deff9a" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 class="success-title">¡PEDIDO CONFIRMADO!</h2>
+      <p class="success-sub">Tu orden ha sido procesada exitosamente. Recibirás confirmación por WhatsApp en los próximos minutos.</p>
+      <p class="success-order-num" id="success-order-num"># ORD-000000</p>
+      <button onclick="finishOrder()" style="margin-top:2rem;padding:0.85rem 2.5rem;background:#deff9a;color:#0d0d0d;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.15em;border:none;cursor:pointer;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))">
+        VOLVER A LA TIENDA
+      </button>
+    </div>
+
+  </div><!-- /checkout-modal -->
+</div><!-- /checkout-overlay -->
+
+
+<!-- ═══════════════════════════════════════════════════
+     TOAST
+═══════════════════════════════════════════════════ -->
+<div id="toast" role="alert" aria-live="polite">
+  <div id="toast-inner" class="toast-inner success">
+    <svg id="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toast-msg">Mensaje</span>
   </div>
 </div>
 
 
-<!-- ╔══════════════════════════════════════════╗
-     ║  JAVASCRIPT                              ║
-     ╚══════════════════════════════════════════╝ -->
+<!-- ═══════════════════════════════════════════════════
+     JAVASCRIPT — STATE + LOGIC
+═══════════════════════════════════════════════════ -->
 <script>
-  /* ── Navbar scroll effect ── */
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 30);
-  }, { passive: true });
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   1. CART STATE
+   Single source of truth — array of { id, name, category, price, qty, stock }
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+let cart = [];
+let activePaymentMethod = 'card';
+let toastTimer = null;
 
-  /* ── Mobile menu toggle ── */
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const bars = hamburger.querySelectorAll('.hamburger-bar');
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   2. ADD TO CART
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function addToCart(btn) {
+  const id       = btn.dataset.id;
+  const name     = btn.dataset.name;
+  const category = btn.dataset.category;
+  const price    = parseFloat(btn.dataset.price);
+  const stock    = parseInt(btn.dataset.stock, 10);
 
-  hamburger.addEventListener('click', () => {
-    const open = mobileMenu.classList.toggle('open');
-    // Animate bars into X
-    if (open) {
-      bars[0].style.transform = 'translateY(7px) rotate(45deg)';
-      bars[1].style.opacity = '0';
-      bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
-    } else {
-      bars[0].style.transform = '';
-      bars[1].style.opacity = '';
-      bars[2].style.transform = '';
+  const existing = cart.find(item => item.id === id);
+
+  if (existing) {
+    if (existing.qty >= stock) {
+      showToast(`Stock máximo alcanzado (${stock} uds.)`, 'error'); return;
     }
-  });
-
-  /* Close mobile menu on link click */
-  mobileMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      bars[0].style.transform = bars[1].style.opacity = bars[2].style.transform = '';
-    });
-  });
-
-  /* ── Scroll reveal (IntersectionObserver) ── */
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => io.observe(el));
-
-  /* ── Add to Cart with toast ── */
-  function addToCart(btn, name) {
-    // Button feedback
-    const original = btn.textContent;
-    btn.textContent = '✓ AGREGADO';
-    btn.style.background = '#deff9a';
-    btn.style.color = '#0d0d0d';
-    btn.style.borderColor = '#deff9a';
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.style.background = '';
-      btn.style.color = '';
-      btn.style.borderColor = '';
-    }, 2000);
-
-    // Toast
-    const toast = document.getElementById('toast');
-    document.getElementById('toast-msg').textContent = name.toUpperCase() + ' — AÑADIDO';
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateX(-50%) translateY(0)';
-    clearTimeout(toast._t);
-    toast._t = setTimeout(() => {
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateX(-50%) translateY(12px)';
-    }, 2800);
+    existing.qty++;
+  } else {
+    cart.push({ id, name, category, price, qty: 1, stock });
   }
+
+  // Visual feedback on button
+  const originalText = btn.textContent;
+  btn.textContent = '✓ AÑADIDO';
+  btn.classList.add('added');
+  setTimeout(() => {
+    btn.textContent = originalText;
+    btn.classList.remove('added');
+  }, 1500);
+
+  updateCartUI();
+  showToast(`${name} añadido al carrito`, 'success');
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   3. CART QUANTITY & REMOVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function changeQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) {
+    removeFromCart(id); return;
+  }
+  if (item.qty > item.stock) { item.qty = item.stock; }
+  updateCartUI();
+}
+
+function removeFromCart(id) {
+  const item = cart.find(i => i.id === id);
+  cart = cart.filter(i => i.id !== id);
+  updateCartUI();
+  if (item) showToast(`${item.name} eliminado`, 'info');
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   4. TOTALS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function getCartCount()    { return cart.reduce((s, i) => s + i.qty, 0); }
+function getCartSubtotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
+function fmt(n)            { return '$' + n.toFixed(2); }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   5. RENDER CART DRAWER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function updateCartUI() {
+  // Badge
+  const count = getCartCount();
+  const badge = document.getElementById('cart-badge');
+  badge.textContent = count;
+  badge.classList.remove('badge-pop');
+  void badge.offsetWidth; // reflow to restart animation
+  badge.classList.add('badge-pop');
+
+  // Items area
+  const itemsEl  = document.getElementById('cart-items');
+  const footerEl = document.getElementById('cart-footer');
+
+  if (cart.length === 0) {
+    itemsEl.innerHTML = `
+      <div class="cart-empty">
+        <svg class="cart-empty-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <p class="cart-empty-text">TU CARRITO ESTÁ VACÍO</p>
+        <p class="cart-empty-sub">Agrega piezas del Drop 01</p>
+      </div>`;
+    footerEl.style.display = 'none';
+    return;
+  }
+
+  // Render items
+  itemsEl.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-img-placeholder">SSVSV</div>
+      <div>
+        <p class="cart-item-cat">${item.category}</p>
+        <p class="cart-item-name">${item.name}</p>
+        <p class="cart-item-price">${fmt(item.price)} c/u</p>
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty('${item.id}', -1)" aria-label="Disminuir cantidad">−</button>
+          <span class="qty-display">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${item.id}', 1)" aria-label="Aumentar cantidad">+</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem">
+        <span class="font-display text-xl text-white">${fmt(item.price * item.qty)}</span>
+        <button class="remove-btn" onclick="removeFromCart('${item.id}')" aria-label="Eliminar ${item.name}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/>
+          </svg>
+        </button>
+      </div>
+    </div>`).join('');
+
+  // Footer totals
+  const subtotal = getCartSubtotal();
+  document.getElementById('cart-subtotal').textContent = fmt(subtotal);
+  document.getElementById('cart-total').textContent    = fmt(subtotal);
+  footerEl.style.display = 'block';
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   6. OPEN / CLOSE CART DRAWER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function openCart() {
+  document.getElementById('cart-overlay').classList.add('open');
+  document.getElementById('cart-drawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('cart-btn').addEventListener('click', openCart);
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   7. CHECKOUT MODAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function openCheckout() {
+  if (cart.length === 0) { showToast('El carrito está vacío', 'error'); return; }
+
+  closeCart();
+  renderCheckoutSummary();
+
+  const overlay = document.getElementById('checkout-overlay');
+  overlay.classList.add('open');
+  overlay.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+
+  // Reset form & show form area
+  document.getElementById('checkout-form-area').style.display = 'block';
+  document.getElementById('success-screen').classList.remove('visible');
+  clearAllErrors();
+}
+function closeCheckout() {
+  document.getElementById('checkout-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderCheckoutSummary() {
+  const container = document.getElementById('checkout-order-items');
+  container.innerHTML = cart.map(item => `
+    <div class="order-item">
+      <span class="order-item-name">
+        ${item.name}
+        <span class="order-item-qty">x${item.qty}</span>
+      </span>
+      <span class="order-item-price">${fmt(item.price * item.qty)}</span>
+    </div>`).join('');
+
+  const total = getCartSubtotal();
+  document.getElementById('checkout-total').textContent = fmt(total);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   8. PAYMENT METHOD TABS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function selectPayment(method, tab) {
+  activePaymentMethod = method;
+  // Deactivate all tabs + panels
+  document.querySelectorAll('.payment-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.payment-panel').forEach(p => p.classList.remove('active'));
+  // Activate selected
+  tab.classList.add('active');
+  document.getElementById('panel-' + method).classList.add('active');
+  clearAllErrors();
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   9. CARD FORMATTING HELPERS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function formatCardNumber(input) {
+  let v = input.value.replace(/\D/g, '').substring(0, 16);
+  input.value = v.replace(/(.{4})/g, '$1 ').trim();
+  // Detect card type
+  const badge = document.getElementById('card-type-badge');
+  if      (/^4/.test(v))  badge.textContent = 'VISA';
+  else if (/^5[1-5]/.test(v)) badge.textContent = 'MC';
+  else if (/^3[47]/.test(v))  badge.textContent = 'AMEX';
+  else badge.textContent = '';
+}
+function formatExpiry(input) {
+  let v = input.value.replace(/\D/g, '').substring(0, 4);
+  if (v.length >= 2) v = v.substring(0,2) + '/' + v.substring(2);
+  input.value = v;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   10. VALIDATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function showError(fieldId, errId) {
+  document.getElementById(fieldId).classList.add('error');
+  document.getElementById(errId).classList.add('visible');
+}
+function clearError(fieldId, errId) {
+  document.getElementById(fieldId).classList.remove('error');
+  document.getElementById(errId).classList.remove('visible');
+}
+function clearAllErrors() {
+  document.querySelectorAll('.field-input').forEach(el => el.classList.remove('error'));
+  document.querySelectorAll('.field-error').forEach(el => el.classList.remove('visible'));
+}
+
+function validateForm() {
+  let valid = true;
+
+  // Contact fields — always required
+  const name    = document.getElementById('contact-name').value.trim();
+  const phone   = document.getElementById('contact-phone').value.trim();
+  const address = document.getElementById('contact-address').value.trim();
+
+  if (!name)    { showError('contact-name',    'err-contact-name');    valid = false; }
+  else          { clearError('contact-name',   'err-contact-name'); }
+  if (!phone)   { showError('contact-phone',   'err-contact-phone');   valid = false; }
+  else          { clearError('contact-phone',  'err-contact-phone'); }
+  if (!address) { showError('contact-address', 'err-contact-address'); valid = false; }
+  else          { clearError('contact-address','err-contact-address'); }
+
+  // Card-specific validation
+  if (activePaymentMethod === 'card') {
+    const cardNum  = document.getElementById('card-number').value.replace(/\s/g,'');
+    const cardName = document.getElementById('card-name').value.trim();
+    const expiry   = document.getElementById('card-expiry').value;
+    const cvv      = document.getElementById('card-cvv').value;
+
+    if (cardNum.length < 15) { showError('card-number', 'err-card-number'); valid = false; }
+    else                     { clearError('card-number','err-card-number'); }
+
+    if (!cardName) { showError('card-name', 'err-card-name'); valid = false; }
+    else           { clearError('card-name','err-card-name'); }
+
+    const expiryValid = /^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry);
+    if (!expiryValid) { showError('card-expiry', 'err-card-expiry'); valid = false; }
+    else              { clearError('card-expiry','err-card-expiry'); }
+
+    if (cvv.length < 3) { showError('card-cvv', 'err-card-cvv'); valid = false; }
+    else                { clearError('card-cvv','err-card-cvv'); }
+  }
+
+  return valid;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   11. PROCESS PAYMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function processPayment() {
+  if (cart.length === 0) { showToast('El carrito está vacío', 'error'); return; }
+  if (!validateForm()) {
+    showToast('Completa todos los campos requeridos', 'error');
+    // Scroll to first error
+    const firstError = document.querySelector('.field-input.error');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  // Loading state
+  const btn     = document.getElementById('submit-btn');
+  const spinner = document.getElementById('pay-spinner');
+  const label   = document.getElementById('submit-label');
+  btn.disabled   = true;
+  spinner.classList.add('visible');
+  label.textContent = 'PROCESANDO...';
+
+  // Simulated payment processing (1.8s)
+  // In production: replace with fetch() to your payment gateway API
+  setTimeout(() => {
+    spinner.classList.remove('visible');
+    btn.disabled = false;
+    label.textContent = 'CONFIRMAR Y PAGAR';
+    showSuccessScreen();
+  }, 1800);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   12. SUCCESS SCREEN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function showSuccessScreen() {
+  const orderNum = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
+  document.getElementById('success-order-num').textContent = '# ' + orderNum;
+
+  document.getElementById('checkout-form-area').style.display = 'none';
+  document.getElementById('success-screen').classList.add('visible');
+
+  // Clear cart
+  cart = [];
+  updateCartUI();
+
+  // Send WhatsApp notification (non-blocking, direct call from user gesture context not available here,
+  // so we store the URL and open it when user clicks "Volver")
+  window._pendingWhatsApp = buildWhatsAppURL(orderNum);
+}
+
+function buildWhatsAppURL(orderNum) {
+  const items = cart.length > 0
+    ? cart.map(i => `• ${i.qty}x ${i.name} — ${fmt(i.price * i.qty)}`).join('\n')
+    : document.getElementById('checkout-order-items').innerText;
+  const total = document.getElementById('checkout-total').textContent;
+  const msg = `🔥 *NUEVO PEDIDO — STREET STYLE SV*\n\n*#${orderNum}*\n\n${items}\n\n*Total: ${total}*\n\nCliente: ${document.getElementById('contact-name').value}\nTeléfono: ${document.getElementById('contact-phone').value}\nDirección: ${document.getElementById('contact-address').value}`;
+  return `https://wa.me/50321212828?text=${encodeURIComponent(msg)}`;
+}
+
+function finishOrder() {
+  closeCheckout();
+  // Open WhatsApp after user interaction (safe from popup blockers)
+  if (window._pendingWhatsApp) {
+    window.open(window._pendingWhatsApp, '_blank');
+    window._pendingWhatsApp = null;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   13. TOAST SYSTEM
+   types: 'success' | 'error' | 'info'
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function showToast(msg, type = 'success') {
+  const toast = document.getElementById('toast');
+  const inner = document.getElementById('toast-inner');
+  const icon  = document.getElementById('toast-icon');
+  const text  = document.getElementById('toast-msg');
+
+  text.textContent = msg;
+
+  // Type-specific styles + icon
+  inner.className = 'toast-inner ' + type;
+  if (type === 'success') {
+    icon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
+    icon.setAttribute('stroke', 'currentColor');
+  } else if (type === 'error') {
+    icon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
+    icon.setAttribute('stroke', 'currentColor');
+  } else {
+    icon.innerHTML = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+    icon.setAttribute('stroke', '#deff9a');
+  }
+
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   14. NAVBAR + HAMBURGER + SCROLL REVEAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const navbar    = document.getElementById('navbar');
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const bars      = hamburger.querySelectorAll('.hamburger-bar');
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 30);
+}, { passive: true });
+
+hamburger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  bars[0].style.transform  = open ? 'translateY(7px) rotate(45deg)' : '';
+  bars[1].style.opacity    = open ? '0' : '';
+  bars[2].style.transform  = open ? 'translateY(-7px) rotate(-45deg)' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  bars.forEach(b => { b.style.transform = ''; b.style.opacity = ''; });
+}));
+
+// Escape key closes modals
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeCart(); closeCheckout(); }
+});
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+
+/* ── Init ── */
+updateCartUI(); // renders empty state on load
 </script>
 
 </body>
