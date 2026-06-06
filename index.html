@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STREET STYLE SV — DROP 01: TOROGOZ EDITION</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Bebas Neue (display) + Barlow Condensed (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            neon:    '#deff9a',
+            carbon:  '#0d0d0d',
+            ash:     '#1a1a1a',
+            smoke:   '#2a2a2a',
+            muted:   '#555555',
+          },
+          fontFamily: {
+            display: ['Bebas Neue', 'sans-serif'],
+            body:    ['Barlow Condensed', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    /* ─── Base ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #0d0d0d;
+      color: #e5e5e5;
+      font-family: 'Barlow Condensed', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── Noise overlay (texture) ───────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ─── Nav ───────────────────────────────────────────────── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    #navbar.scrolled {
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .nav-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #aaa;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: #deff9a; }
+
+    /* ─── Mobile menu ───────────────────────────────────────── */
+    #mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1.5rem 1.5rem 2rem;
+      background: #1a1a1a;
+      border-top: 1px solid #2a2a2a;
+    }
+    #mobile-menu.open { display: flex; }
+
+    /* ─── Hero ──────────────────────────────────────────────── */
+    #hero {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(222,255,154,0.06) 0%, transparent 60%),
+        linear-gradient(160deg, #0d0d0d 40%, #141c0a 100%);
+    }
+    /* Grunge diagonal stripe */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -55deg,
+        transparent 0px,
+        transparent 48px,
+        rgba(255,255,255,0.015) 48px,
+        rgba(255,255,255,0.015) 50px
+      );
+    }
+    .hero-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #deff9a;
+      border: 1px solid rgba(222,255,154,0.4);
+      display: inline-block;
+      padding: 0.3rem 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 14vw, 10rem);
+      line-height: 0.9;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      text-shadow: 0 0 120px rgba(222,255,154,0.08);
+    }
+    .hero-title span { color: #deff9a; }
+    .hero-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: #888;
+      margin-top: 1rem;
+      max-width: 420px;
+      font-style: italic;
+    }
+    .hero-cta {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2.5rem;
+      background: #deff9a;
+      color: #0d0d0d;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 4px 4px 0 rgba(222,255,154,0.25);
+    }
+    .hero-cta:hover {
+      background: #fff;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 rgba(222,255,154,0.4);
+    }
+    /* Floating badge */
+    .drop-badge {
+      position: absolute;
+      top: 6.5rem; right: 1.5rem;
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      border: 1px solid rgba(222,255,154,0.4);
+      background: rgba(13,13,13,0.7);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      animation: spin-slow 20s linear infinite;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+    @keyframes spin-slow { to { transform: rotate(360deg); } }
+    .drop-badge-inner { animation: spin-slow 20s linear infinite reverse; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: #deff9a; line-height: 1.4; }
+
+    /* ─── Marquee ────────────────────────────────────────────── */
+    .marquee-wrap {
+      background: #deff9a;
+      color: #0d0d0d;
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 1px solid #fff;
+      border-bottom: 1px solid rgba(0,0,0,0.15);
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 18s linear infinite;
+    }
+    .marquee-track span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      padding: 0.6rem 2.5rem;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── Section label ─────────────────────────────────────── */
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #deff9a;
+      border-left: 2px solid #deff9a;
+      padding-left: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      line-height: 0.95;
+      color: #fff;
+    }
+
+    /* ─── Product card ──────────────────────────────────────── */
+    .product-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #deff9a, transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .product-card:hover { border-color: rgba(222,255,154,0.35); transform: translateY(-4px); }
+    .product-card:hover::before { opacity: 1; }
+
+    .product-img {
+      width: 100%; aspect-ratio: 3/4;
+      background: #2a2a2a;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img::after {
+      content: 'STREET STYLE SV';
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.2em;
+      color: #3a3a3a;
+    }
+    /* Fake scan-lines on image */
+    .product-img::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent 0px, transparent 3px,
+        rgba(0,0,0,0.12) 3px, rgba(0,0,0,0.12) 4px
+      );
+    }
+    .edition-pill {
+      position: absolute;
+      top: 0.75rem; left: 0.75rem; z-index: 2;
+      background: #deff9a;
+      color: #0d0d0d;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+    }
+
+    .add-btn {
+      display: block; width: 100%;
+      padding: 0.85rem;
+      background: transparent;
+      border: 1px solid #3a3a3a;
+      color: #aaa;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .add-btn:hover {
+      background: #deff9a;
+      color: #0d0d0d;
+      border-color: #deff9a;
+    }
+
+    /* ─── Stock bar ─────────────────────────────────────────── */
+    .stock-bar-track {
+      height: 3px;
+      background: #2a2a2a;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .stock-bar-fill {
+      height: 100%;
+      background: #deff9a;
+      border-radius: 2px;
+      transition: width 1s ease;
+    }
+
+    /* ─── Footer ────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid #2a2a2a;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      letter-spacing: 0.05em;
+      color: #fff;
+    }
+    .footer-logo span { color: #deff9a; }
+    .ig-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid #2a2a2a;
+      padding: 0.5rem 1.25rem;
+      color: #aaa;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .ig-btn:hover { border-color: #deff9a; color: #deff9a; }
+
+    /* ─── Scroll fade-in ────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════╗
+     ║  NAVBAR                                  ║
+     ╚══════════════════════════════════════════╝ -->
+<nav id="navbar" class="px-5 md:px-10 py-5">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="#" class="font-display text-2xl tracking-widest text-white leading-none">
+      STREET <span class="text-neon">STYLE</span> SV
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="hidden md:flex items-center gap-10">
+      <li><a href="#catalogo" class="nav-link">Shop</a></li>
+      <li><a href="#" class="nav-link">Cultura</a></li>
+      <li><a href="#footer" class="nav-link">Contacto</a></li>
+    </ul>
+
+    <!-- Cart + hamburger -->
+    <div class="flex items-center gap-4">
+      <!-- Cart icon -->
+      <button aria-label="Carrito" class="relative text-white hover:text-neon transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-neon text-carbon text-[0.55rem] font-bold flex items-center justify-center rounded-full leading-none">3</span>
+      </button>
+
+      <!-- Hamburger (mobile) -->
+      <button id="hamburger" aria-label="Menú" class="md:hidden flex flex-col gap-[5px] p-1">
+        <span class="hamburger-bar block w-6 h-[2px] bg-white transition-all duration-300"></span>
+        <span class="hamburger-bar block w-6 h-[2px] bg-white transition-all duration-300"></span>
+        <span class="hamburger-bar block w-6 h-[2px] bg-white transition-all duration-300"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu">
+    <a href="#catalogo" class="nav-link text-lg">Shop</a>
+    <a href="#" class="nav-link text-lg">Cultura</a>
+    <a href="#footer" class="nav-link text-lg">Contacto</a>
+  </div>
+</nav>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║  HERO                                    ║
+     ╚══════════════════════════════════════════╝ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Floating badge -->
+  <div class="drop-badge hidden sm:flex">
+    <div class="drop-badge-inner">
+      🇸🇻<br>SAN MIGUEL<br>EL SALVADOR<br>2025
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-7xl mx-auto w-full">
+    <div class="hero-tag">DROP 01 — Edición Limitada</div>
+    <h1 class="hero-title">
+      TOROGOZ<br><span>EDITION</span>
+    </h1>
+    <p class="hero-sub">Raíces urbanas.<br>Unidades estrictamente limitadas.</p>
+    <a href="#catalogo" class="hero-cta">EXPLORAR EL DROP</a>
+
+    <!-- Countdown -->
+    <div class="mt-8 flex items-center gap-1 text-muted text-sm font-body tracking-widest uppercase">
+      <span class="w-2 h-2 rounded-full bg-neon animate-pulse inline-block"></span>
+      &nbsp;Drop activo — cierra pronto
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+    <span class="font-body text-xs tracking-[0.2em] uppercase text-white">Scroll</span>
+    <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="14" height="22" rx="7" stroke="white" stroke-width="1.5"/>
+      <rect x="7" y="5" width="2" height="5" rx="1" fill="white" class="animate-bounce"/>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║  MARQUEE                                 ║
+     ╚══════════════════════════════════════════╝ -->
+<div class="marquee-wrap">
+  <!-- Duplicamos el track para loop infinito suave -->
+  <div class="marquee-track">
+    <span>ENVÍOS GRATIS EN LA UGB</span>
+    <span>—</span>
+    <span>SAN MIGUEL 🇸🇻🔥</span>
+    <span>—</span>
+    <span>STOCK LIMITADO</span>
+    <span>—</span>
+    <span>DROP 01: TOROGOZ EDITION</span>
+    <span>—</span>
+    <span>ENVÍOS GRATIS EN LA UGB</span>
+    <span>—</span>
+    <span>SAN MIGUEL 🇸🇻🔥</span>
+    <span>—</span>
+    <span>STOCK LIMITADO</span>
+    <span>—</span>
+    <span>DROP 01: TOROGOZ EDITION</span>
+    <span>—</span>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║  CATÁLOGO                                ║
+     ╚══════════════════════════════════════════╝ -->
+<section id="catalogo" class="py-20 px-5 md:px-10">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="mb-14 reveal">
+      <p class="section-label">Catálogo / Drop 01</p>
+      <h2 class="section-title">PIEZAS<br>DEL DROP</h2>
+      <p class="mt-4 text-muted font-body text-lg tracking-wide max-w-md">
+        Cada pieza es única. Cuando se acabe el stock, se acaba para siempre.
+      </p>
+    </div>
+
+    <!-- Product grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- ── Producto 1: Camiseta ── -->
+      <div class="product-card reveal" style="transition-delay:0.1s">
+        <div class="product-img">
+          <span class="edition-pill">LIMITADO</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="text-neon font-body text-xs tracking-[0.2em] uppercase mb-1">Camiseta</p>
+              <h3 class="font-display text-2xl text-white leading-none">TOROGOZ TEE</h3>
+            </div>
+            <span class="font-display text-2xl text-white">$18</span>
+          </div>
+          <!-- Stock bar -->
+          <div class="mb-1 flex justify-between items-center">
+            <span class="font-body text-xs text-muted tracking-wide uppercase">Stock</span>
+            <span class="font-body text-xs text-neon tracking-wide">12 / 50 restantes</span>
+          </div>
+          <div class="stock-bar-track mb-5">
+            <div class="stock-bar-fill" style="width:76%"></div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Torogoz Tee')">Añadir al carrito</button>
+        </div>
+      </div>
+
+      <!-- ── Producto 2: Sudadera ── -->
+      <div class="product-card reveal" style="transition-delay:0.2s">
+        <div class="product-img">
+          <span class="edition-pill">SOLD OUT PRONTO</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="text-neon font-body text-xs tracking-[0.2em] uppercase mb-1">Sudadera</p>
+              <h3 class="font-display text-2xl text-white leading-none">VOLCÁN HOODIE</h3>
+            </div>
+            <span class="font-display text-2xl text-white">$32</span>
+          </div>
+          <div class="mb-1 flex justify-between items-center">
+            <span class="font-body text-xs text-muted tracking-wide uppercase">Stock</span>
+            <span class="font-body text-xs text-neon tracking-wide">5 / 30 restantes</span>
+          </div>
+          <div class="stock-bar-track mb-5">
+            <div class="stock-bar-fill" style="width:83%"></div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Volcán Hoodie')">Añadir al carrito</button>
+        </div>
+      </div>
+
+      <!-- ── Producto 3: Gorra ── -->
+      <div class="product-card reveal" style="transition-delay:0.3s">
+        <div class="product-img">
+          <span class="edition-pill">LIMITADO</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <p class="text-neon font-body text-xs tracking-[0.2em] uppercase mb-1">Gorra</p>
+              <h3 class="font-display text-2xl text-white leading-none">URBAN CAP SV</h3>
+            </div>
+            <span class="font-display text-2xl text-white">$14</span>
+          </div>
+          <div class="mb-1 flex justify-between items-center">
+            <span class="font-body text-xs text-muted tracking-wide uppercase">Stock</span>
+            <span class="font-body text-xs text-neon tracking-wide">20 / 40 restantes</span>
+          </div>
+          <div class="stock-bar-track mb-5">
+            <div class="stock-bar-fill" style="width:50%"></div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this, 'Urban Cap SV')">Añadir al carrito</button>
+        </div>
+      </div>
+
+    </div><!-- /grid -->
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║  BANNER CULTURA                          ║
+     ╚══════════════════════════════════════════╝ -->
+<section class="relative py-24 px-5 md:px-10 overflow-hidden reveal">
+  <div class="absolute inset-0 bg-neon opacity-[0.03]"></div>
+  <div class="absolute inset-0" style="background: repeating-linear-gradient(-45deg, transparent 0, transparent 20px, rgba(222,255,154,0.03) 20px, rgba(222,255,154,0.03) 22px);"></div>
+  <div class="relative max-w-7xl mx-auto text-center">
+    <p class="section-label inline-block border-l-0 pl-0 mb-4">🇸🇻 Hecho en El Salvador</p>
+    <h2 class="font-display text-5xl md:text-7xl text-white mb-6 leading-none">
+      CULTURA<br><span class="text-neon">CALLEJERA</span><br>GLOBAL
+    </h2>
+    <p class="font-body text-muted text-xl tracking-wide max-w-lg mx-auto mb-8">
+      Del barrio de San Miguel para el mundo. Heavy cotton, calidad premium, identidad auténtica.
+    </p>
+    <a href="#" class="inline-block border border-neon text-neon font-display text-xl tracking-widest px-10 py-4 hover:bg-neon hover:text-carbon transition-all duration-200">
+      NUESTRA HISTORIA
+    </a>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║  FOOTER                                  ║
+     ╚══════════════════════════════════════════╝ -->
+<footer id="footer" class="py-16 px-5 md:px-10">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-10">
+
+      <!-- Brand -->
+      <div>
+        <div class="footer-logo">STREET <span>STYLE</span> SV</div>
+        <p class="font-body text-muted text-base tracking-wide mt-2">
+          San Miguel, El Salvador 🇸🇻<br>
+          Ropa urbana de edición limitada.
+        </p>
+      </div>
+
+      <!-- Instagram -->
+      <div class="flex flex-col gap-3">
+        <a href="https://instagram.com/streetstyle.sv" target="_blank" rel="noopener noreferrer" class="ig-btn">
+          <!-- Instagram SVG icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          @streetstyle.sv
+        </a>
+        <a href="#" class="ig-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          WhatsApp / Pedidos
+        </a>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-smoke pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-muted font-body text-sm tracking-wide">
+      <span>© 2025 Street Style SV. Todos los derechos reservados.</span>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-neon transition-colors">Términos</a>
+        <a href="#" class="hover:text-neon transition-colors">Privacidad</a>
+        <a href="#" class="hover:text-neon transition-colors">Envíos</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║  TOAST NOTIFICATION                      ║
+     ╚══════════════════════════════════════════╝ -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] pointer-events-none"
+     style="opacity:0; transition: opacity 0.3s, transform 0.3s; transform: translateX(-50%) translateY(12px);">
+  <div class="bg-neon text-carbon font-display text-base tracking-widest px-6 py-3 flex items-center gap-3 shadow-2xl"
+       style="clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toast-msg">AÑADIDO AL CARRITO</span>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════╗
+     ║  JAVASCRIPT                              ║
+     ╚══════════════════════════════════════════╝ -->
+<script>
+  /* ── Navbar scroll effect ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+  }, { passive: true });
+
+  /* ── Mobile menu toggle ── */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const bars = hamburger.querySelectorAll('.hamburger-bar');
+
+  hamburger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    // Animate bars into X
+    if (open) {
+      bars[0].style.transform = 'translateY(7px) rotate(45deg)';
+      bars[1].style.opacity = '0';
+      bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+    } else {
+      bars[0].style.transform = '';
+      bars[1].style.opacity = '';
+      bars[2].style.transform = '';
+    }
+  });
+
+  /* Close mobile menu on link click */
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      bars[0].style.transform = bars[1].style.opacity = bars[2].style.transform = '';
+    });
+  });
+
+  /* ── Scroll reveal (IntersectionObserver) ── */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* ── Add to Cart with toast ── */
+  function addToCart(btn, name) {
+    // Button feedback
+    const original = btn.textContent;
+    btn.textContent = '✓ AGREGADO';
+    btn.style.background = '#deff9a';
+    btn.style.color = '#0d0d0d';
+    btn.style.borderColor = '#deff9a';
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }, 2000);
+
+    // Toast
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = name.toUpperCase() + ' — AÑADIDO';
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(12px)';
+    }, 2800);
+  }
+</script>
+
+</body>
+</html>
